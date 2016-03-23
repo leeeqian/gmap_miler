@@ -93,7 +93,7 @@ console.log('calcPointToPoint')
 console.log(latLng(p1), latLng(p2), state, sum);
 console.log(distanceOb)
             });            
-        }, b*400);
+        }, b*1000);
     };
     
     var increaseDistance = function(distanceOb, state, value){
