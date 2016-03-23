@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Directions service</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="./states.js" ></script>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start">
+      <option value="seattle, wa">Seattle</option>
+      <option value="chicago, il">Chicago</option>
+      <option value="los angeles, ca">Los Angeles</option>
+    </select>
+    <b>End: </b>
+    <select id="end">
+      <option value="chicago, il">Chicago</option>
+      <option value="austin, tx">Austin</option>
+      <option value="new york, ny">New York</option>
+      <option value="san jose, ca">San Jose</option>
+      <option value="portland, wa">Portland</option>
+      <option value="dickinson, nd">Dickinson</option>
+      <option value="los angeles, ca">Los Angeles</option>
+      <option value="seattle, wa">Seattle</option>
+    </select>
+    </div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute();
+        };
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+      function calculateAndDisplayRoute() {
+          var origin = document.getElementById('start').value;
+          var destination = document.getElementById('end').value;
+          GmapMiler.calcDistance(origin, destination);
+      }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyrIP-bp8sXsAt9iTy1JrRb78SVpDNwuM&callback=initMap">
+    </script>
+    <script async defer src="./gmap_miler.js" ></script>
+  </body>
+</html>
